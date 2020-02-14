@@ -1,4 +1,4 @@
-package com.assignment1;
+package com.yellowtaxipipeline;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

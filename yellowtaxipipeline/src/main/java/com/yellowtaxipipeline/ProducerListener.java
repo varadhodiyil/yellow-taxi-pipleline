@@ -1,4 +1,4 @@
-package com.assignment1;
+package com.yellowtaxipipeline;
 
 import javax.jms.JMSException;
 import javax.jms.Message;

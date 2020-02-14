@@ -1,4 +1,4 @@
-package com.assignment1;
+package com.yellowtaxipipeline;
 
 public class Sample {
 	private int id;

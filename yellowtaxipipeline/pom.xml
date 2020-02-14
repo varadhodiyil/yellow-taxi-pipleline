@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com</groupId>
-	<artifactId>assignment1</artifactId>
+	<artifactId>yellowtaxipipeline</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>assignment1</name>
+	<name>yellowtaxipipeline</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>

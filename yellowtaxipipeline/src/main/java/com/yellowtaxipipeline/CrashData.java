@@ -1,4 +1,4 @@
-package com.assignment1;
+package com.yellowtaxipipeline;
 
 import com.google.gson.annotations.SerializedName;
 

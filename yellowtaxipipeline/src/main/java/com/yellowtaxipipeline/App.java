@@ -1,4 +1,4 @@
-package com.assignment1;
+package com.yellowtaxipipeline;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -24,16 +24,7 @@ public class App
         thread(new Producer(), false);
         thread(new Consumer(), false);
 
-		List<String[]> crashData = null;
-		try {
-			crashData = readCrashData();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("Crash count" + crashData.size());
-		List<TaxiZoneLookup> taxiZoneLookupData = readTaxiZoneLookup();
-		System.out.println("Taxi Lookup count" + taxiZoneLookupData.size());
+		
     }
     public static void thread(Runnable runnable, boolean daemon) {
 
