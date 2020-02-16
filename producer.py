@@ -2,7 +2,7 @@ import stomp
 from read_file import DataReader
 from datetime import datetime
 import sys
-conn = stomp.Connection([('localhost',61613)])
+conn = stomp.Connection([('192.168.1.14',61613)])
 
 start = datetime.now()
 
@@ -22,7 +22,7 @@ for _ in range(1):
 	# flag = 0
 	# print(data_reader.to_json(orient='records', lines=True))
 	for chunk in data_reader:
-		# print(chunk)
+		print(chunk)
 		conn.send(body=chunk,destination='/topic/dataset')
 print("done")
 end = datetime.now()
