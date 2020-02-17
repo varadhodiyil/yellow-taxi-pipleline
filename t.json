@@ -1,0 +1,700 @@
+{
+   "plus_code" : {
+      "compound_code" : "J2FQ+7H New York, NY, USA",
+      "global_code" : "87G8J2FQ+7H"
+   },
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "1079",
+               "short_name" : "1079",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "East 15th Street",
+               "short_name" : "E 15th St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Midwood",
+               "short_name" : "Midwood",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Brooklyn",
+               "short_name" : "Brooklyn",
+               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+            },
+            {
+               "long_name" : "Kings County",
+               "short_name" : "Kings County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "11230",
+               "short_name" : "11230",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "4401",
+               "short_name" : "4401",
+               "types" : [ "postal_code_suffix" ]
+            }
+         ],
+         "formatted_address" : "1079 E 15th St, Brooklyn, NY 11230, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 40.623261,
+               "lng" : -73.960775
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.6246099802915,
+                  "lng" : -73.9594260197085
+               },
+               "southwest" : {
+                  "lat" : 40.6219120197085,
+                  "lng" : -73.96212398029151
+               }
+            }
+         },
+         "place_id" : "ChIJwUOz4cdEwokRYDwNnf8vp-4",
+         "plus_code" : {
+            "compound_code" : "J2FQ+8M New York, United States",
+            "global_code" : "87G8J2FQ+8M"
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "1417",
+               "short_name" : "1417",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Avenue K",
+               "short_name" : "Avenue K",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Midwood",
+               "short_name" : "Midwood",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Brooklyn",
+               "short_name" : "Brooklyn",
+               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+            },
+            {
+               "long_name" : "Kings County",
+               "short_name" : "Kings County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "11230",
+               "short_name" : "11230",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "1417 Avenue K, Brooklyn, NY 11230, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 40.6229729,
+               "lng" : -73.96142589999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.6243218802915,
+                  "lng" : -73.96007691970848
+               },
+               "southwest" : {
+                  "lat" : 40.6216239197085,
+                  "lng" : -73.96277488029151
+               }
+            }
+         },
+         "place_id" : "ChIJAQBQ3MdEwokRdnLiSw89cSk",
+         "plus_code" : {
+            "compound_code" : "J2FQ+5C Brooklyn, New York, United States",
+            "global_code" : "87G8J2FQ+5C"
+         },
+         "types" : [ "establishment", "point_of_interest" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "1082",
+               "short_name" : "1082",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "East 15th Street",
+               "short_name" : "E 15th St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Midwood",
+               "short_name" : "Midwood",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Brooklyn",
+               "short_name" : "Brooklyn",
+               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+            },
+            {
+               "long_name" : "Kings County",
+               "short_name" : "Kings County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "11230",
+               "short_name" : "11230",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "1082 E 15th St, Brooklyn, NY 11230, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 40.6232183,
+               "lng" : -73.96102619999999
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.6245672802915,
+                  "lng" : -73.9596772197085
+               },
+               "southwest" : {
+                  "lat" : 40.6218693197085,
+                  "lng" : -73.9623751802915
+               }
+            }
+         },
+         "place_id" : "EicxMDgyIEUgMTV0aCBTdCwgQnJvb2tseW4sIE5ZIDExMjMwLCBVU0EiGxIZChQKEgmNmmNyyETCiRF9xVCAYb_YFhC6CA",
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "1099-1001",
+               "short_name" : "1099-1001",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "East 15th Street",
+               "short_name" : "E 15th St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Midwood",
+               "short_name" : "Midwood",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Brooklyn",
+               "short_name" : "Brooklyn",
+               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+            },
+            {
+               "long_name" : "Kings County",
+               "short_name" : "Kings County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "11230",
+               "short_name" : "11230",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "4401",
+               "short_name" : "4401",
+               "types" : [ "postal_code_suffix" ]
+            }
+         ],
+         "formatted_address" : "1099-1001 E 15th St, Brooklyn, NY 11230, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.6251755,
+                  "lng" : -73.96093999999999
+               },
+               "southwest" : {
+                  "lat" : 40.622791,
+                  "lng" : -73.96142089999999
+               }
+            },
+            "location" : {
+               "lat" : 40.6239833,
+               "lng" : -73.9611804
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.6253322302915,
+                  "lng" : -73.95983146970849
+               },
+               "southwest" : {
+                  "lat" : 40.6226342697085,
+                  "lng" : -73.9625294302915
+               }
+            }
+         },
+         "place_id" : "ChIJjZpjcshEwokRfMVQgGG_2BY",
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "11230",
+               "short_name" : "11230",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Brooklyn",
+               "short_name" : "Brooklyn",
+               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+            },
+            {
+               "long_name" : "Kings County",
+               "short_name" : "Kings County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Brooklyn, NY 11230, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.636688,
+                  "lng" : -73.9525769
+               },
+               "southwest" : {
+                  "lat" : 40.608814,
+                  "lng" : -73.9796169
+               }
+            },
+            "location" : {
+               "lat" : 40.6190629,
+               "lng" : -73.96537150000002
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.636688,
+                  "lng" : -73.9525769
+               },
+               "southwest" : {
+                  "lat" : 40.608814,
+                  "lng" : -73.9796169
+               }
+            }
+         },
+         "place_id" : "ChIJQ52qw8VEwokR7ZKww-Sl99I",
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Midwood",
+               "short_name" : "Midwood",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Brooklyn",
+               "short_name" : "Brooklyn",
+               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+            },
+            {
+               "long_name" : "Kings County",
+               "short_name" : "Kings County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Midwood, Brooklyn, NY, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.6318593,
+                  "lng" : -73.94411819999999
+               },
+               "southwest" : {
+                  "lat" : 40.6086071,
+                  "lng" : -73.97640899999999
+               }
+            },
+            "location" : {
+               "lat" : 40.6204388,
+               "lng" : -73.95997779999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.6318593,
+                  "lng" : -73.94411819999999
+               },
+               "southwest" : {
+                  "lat" : 40.6086071,
+                  "lng" : -73.97640899999999
+               }
+            }
+         },
+         "place_id" : "ChIJcR4NcMdEwokReNyWtD8H2Rs",
+         "types" : [ "neighborhood", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Brooklyn",
+               "short_name" : "Brooklyn",
+               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+            },
+            {
+               "long_name" : "Kings County",
+               "short_name" : "Kings County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Brooklyn, NY, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.739446,
+                  "lng" : -73.83336509999999
+               },
+               "southwest" : {
+                  "lat" : 40.551042,
+                  "lng" : -74.05663
+               }
+            },
+            "location" : {
+               "lat" : 40.6781784,
+               "lng" : -73.94415789999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.739446,
+                  "lng" : -73.83336509999999
+               },
+               "southwest" : {
+                  "lat" : 40.551042,
+                  "lng" : -74.05663
+               }
+            }
+         },
+         "place_id" : "ChIJCSF8lBZEwokRhngABHRcdoI",
+         "types" : [ "political", "sublocality", "sublocality_level_1" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kings County",
+               "short_name" : "Kings County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Brooklyn",
+               "short_name" : "Brooklyn",
+               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kings County, Brooklyn, NY, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.739446,
+                  "lng" : -73.83336509999999
+               },
+               "southwest" : {
+                  "lat" : 40.551042,
+                  "lng" : -74.05663
+               }
+            },
+            "location" : {
+               "lat" : 40.6528762,
+               "lng" : -73.95949399999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.739446,
+                  "lng" : -73.83336509999999
+               },
+               "southwest" : {
+                  "lat" : 40.551042,
+                  "lng" : -74.05663
+               }
+            }
+         },
+         "place_id" : "ChIJOwE7_GTtwokRs75rhW4_I6M",
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New York",
+               "short_name" : "New York",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New York, NY, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.9175771,
+                  "lng" : -73.70027209999999
+               },
+               "southwest" : {
+                  "lat" : 40.4773991,
+                  "lng" : -74.25908989999999
+               }
+            },
+            "location" : {
+               "lat" : 40.7127753,
+               "lng" : -74.0059728
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.9175771,
+                  "lng" : -73.70027209999999
+               },
+               "southwest" : {
+                  "lat" : 40.4773991,
+                  "lng" : -74.25908989999999
+               }
+            }
+         },
+         "place_id" : "ChIJOwg_06VPwokRYv534QaPC8g",
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Long Island",
+               "short_name" : "Long Island",
+               "types" : [ "establishment", "natural_feature" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Long Island, New York, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 41.1612401,
+                  "lng" : -71.85620109999999
+               },
+               "southwest" : {
+                  "lat" : 40.5429789,
+                  "lng" : -74.0419497
+               }
+            },
+            "location" : {
+               "lat" : 40.789142,
+               "lng" : -73.13496099999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.1612401,
+                  "lng" : -71.85620109999999
+               },
+               "southwest" : {
+                  "lat" : 40.5429789,
+                  "lng" : -74.0419497
+               }
+            }
+         },
+         "place_id" : "ChIJy6Xu4VRE6IkRGA2UhmH59x0",
+         "types" : [ "establishment", "natural_feature" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New York, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.015861,
+                  "lng" : -71.777491
+               },
+               "southwest" : {
+                  "lat" : 40.4773991,
+                  "lng" : -79.7625901
+               }
+            },
+            "location" : {
+               "lat" : 43.2994285,
+               "lng" : -74.21793260000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.015861,
+                  "lng" : -71.777491
+               },
+               "southwest" : {
+                  "lat" : 40.4773991,
+                  "lng" : -79.7625901
+               }
+            }
+         },
+         "place_id" : "ChIJqaUj8fBLzEwRZ5UY3sHGz90",
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "United States",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 71.5388001,
+                  "lng" : -66.885417
+               },
+               "southwest" : {
+                  "lat" : 18.7763,
+                  "lng" : 170.5957
+               }
+            },
+            "location" : {
+               "lat" : 37.09024,
+               "lng" : -95.712891
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 71.5388001,
+                  "lng" : -66.885417
+               },
+               "southwest" : {
+                  "lat" : 18.7763,
+                  "lng" : 170.5957
+               }
+            }
+         },
+         "place_id" : "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
