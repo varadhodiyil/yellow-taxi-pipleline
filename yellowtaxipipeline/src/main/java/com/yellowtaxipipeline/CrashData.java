@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 public class CrashData {
 	@SerializedName("COLLISION_ID")
 	private String collisionId;
-
 	@SerializedName("CRASH DATE")
 	private String crashDate;
 	@SerializedName("CRASH TIME")
@@ -18,34 +17,27 @@ public class CrashData {
 	private String latitude;
 	@SerializedName("LONGITUDE")
 	private String longitude;
-	@SerializedName("ON STREET NAME")
-	private String onStreetName;
-	@SerializedName("CROSS STREET NAME")
-	private String crossStreetName;
-	@SerializedName("OFF STREET NAME")
-	private String offStreetName;
+	@SerializedName("CONTRIBUTING FACTOR VEHICLE 1")
+	private String contributingFactor;
 	public CrashData() {
 	}
 	@Override
 	public String toString() {
-		return "CrashData [collisionId=" + collisionId + ", crashDate=" + crashDate + ", crash_time=" + crashTime
+		return "CrashData [collisionId=" + collisionId + ", crashDate=" + crashDate + ", crashTime=" + crashTime
 				+ ", borough=" + borough + ", zipCode=" + zipCode + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", onStreetName=" + onStreetName + ", crossStreetName=" + crossStreetName
-				+ ", offStreetName=" + offStreetName + "]";
+				+ longitude + ", contributingFactor=" + contributingFactor + "]";
 	}
-	public CrashData(String collisionId, String crashDate, String crash_time, String borough, String zipCode,
-			String latitude, String longitude, String onStreetName, String crossStreetName, String offStreetName) {
+	public CrashData(String collisionId, String crashDate, String crashTime, String borough, String zipCode,
+			String latitude, String longitude, String contributingFactor) {
 		super();
 		this.collisionId = collisionId;
 		this.crashDate = crashDate;
-		this.crashTime = crash_time;
+		this.crashTime = crashTime;
 		this.borough = borough;
 		this.zipCode = zipCode;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.onStreetName = onStreetName;
-		this.crossStreetName = crossStreetName;
-		this.offStreetName = offStreetName;
+		this.contributingFactor = contributingFactor;
 	}
 	public String getCollisionId() {
 		return collisionId;
@@ -59,11 +51,11 @@ public class CrashData {
 	public void setCrashDate(String crashDate) {
 		this.crashDate = crashDate;
 	}
-	public String getCrash_time() {
+	public String getCrashTime() {
 		return crashTime;
 	}
-	public void setCrash_time(String crash_time) {
-		this.crashTime = crash_time;
+	public void setCrashTime(String crashTime) {
+		this.crashTime = crashTime;
 	}
 	public String getBorough() {
 		return borough;
@@ -89,22 +81,10 @@ public class CrashData {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	public String getOnStreetName() {
-		return onStreetName;
+	public String getContributingFactor() {
+		return contributingFactor;
 	}
-	public void setOnStreetName(String onStreetName) {
-		this.onStreetName = onStreetName;
-	}
-	public String getCrossStreetName() {
-		return crossStreetName;
-	}
-	public void setCrossStreetName(String crossStreetName) {
-		this.crossStreetName = crossStreetName;
-	}
-	public String getOffStreetName() {
-		return offStreetName;
-	}
-	public void setOffStreetName(String offStreetName) {
-		this.offStreetName = offStreetName;
+	public void setContributingFactor(String contributingFactor) {
+		this.contributingFactor = contributingFactor;
 	}
 }
