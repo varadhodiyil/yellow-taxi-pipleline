@@ -6,19 +6,19 @@ public class TaxiZoneLookup {
 	private int locationID;
 	private String borough;
 	private String zone;
-//	@SerializedName("service_zone")
-//	private String serviceZone;
-	public TaxiZoneLookup(int locationID, String borough, String zone) { //, String serviceZone) {
+	@SerializedName("service_zone")
+	private String serviceZone;
+	public TaxiZoneLookup(int locationID, String borough, String zone, String serviceZone) {
 		super();
 		this.locationID = locationID;
 		this.borough = borough;
 		this.zone = zone;
-//		this.serviceZone = serviceZone;
+		this.serviceZone = serviceZone;
 	}
 	@Override
 	public String toString() {
-		return "TaxiZoneLookup [locationID=" + locationID + ", borough=" + borough + ", zone=" + zone+ "]";// + ", serviceZone="
-				//+ serviceZone + "]";
+		return "TaxiZoneLookup [locationID=" + locationID + ", borough=" + borough + ", zone=" + zone+ ", serviceZone="
+				+ serviceZone + "]";
 	}
 	public TaxiZoneLookup() {
 		super();
@@ -41,11 +41,11 @@ public class TaxiZoneLookup {
 	public void setZone(String zone) {
 		this.zone = zone;
 	}
-//	public String getServiceZone() {
-//		return serviceZone;
-//	}
-//	public void setServiceZone(String serviceZone) {
-//		this.serviceZone = serviceZone;
-//	}
-//	
+	public String getServiceZone() {
+		return serviceZone;
+	}
+	public void setServiceZone(String serviceZone) {
+		this.serviceZone = serviceZone;
+	}
+	
 }

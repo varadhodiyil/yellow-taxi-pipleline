@@ -9,6 +9,8 @@ public class YellowTripData {
 	private String tpepPickupDatetime;
 	@SerializedName("tpep_dropoff_datetime")
 	private String tpepDropoffDatetime;
+	public YellowTripData() {
+	}
 	@SerializedName("passenger_count")
 	private String passengerCount;
 	@SerializedName("trip_distance")
@@ -18,9 +20,9 @@ public class YellowTripData {
 	@SerializedName("store_and_fwd_flag")
 	private String storandFwdFlag;
 	@SerializedName("PULocationID")
-	private String pULocationID;
+	private int pULocationID;
 	@SerializedName("DOLocationID")
-	private String dOLocationID;
+	private int dOLocationID;
 //	@SerializedName("payment_type")
 //	private String paymentType;
 //	@SerializedName("fare_amount")
@@ -38,8 +40,8 @@ public class YellowTripData {
 //	@SerializedName("total_amount")
 //	private String totalAmount;
 	public YellowTripData(String vendorID, String tpepPickupDatetime, String tpepDropoffDatetime,
-			String passengerCount, String tripDistance, String ratecodeID, String storandFwdFlag, String pULocationID,
-			String dOLocationID) {
+			String passengerCount, String tripDistance, String ratecodeID, String storandFwdFlag, int pULocationID,
+			int dOLocationID) {
 		
 //	}, String paymentType, String fareAmount, String extra, String mtaTax, String tipAmount,
 //			String tollsAmount, String improvementSurcharge) {
@@ -113,16 +115,16 @@ public class YellowTripData {
 	public void setStorandFwdFlag(String storandFwdFlag) {
 		this.storandFwdFlag = storandFwdFlag;
 	}
-	public String getpULocationID() {
+	public int getpULocationID() {
 		return pULocationID;
 	}
-	public void setpULocationID(String pULocationID) {
+	public void setpULocationID(int pULocationID) {
 		this.pULocationID = pULocationID;
 	}
-	public String getdOLocationID() {
+	public int getdOLocationID() {
 		return dOLocationID;
 	}
-	public void setdOLocationID(String dOLocationID) {
+	public void setdOLocationID(int dOLocationID) {
 		this.dOLocationID = dOLocationID;
 	}
 //	public String getPaymentType() {
