@@ -10,7 +10,6 @@ import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
@@ -23,113 +22,81 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
 
 public class Producer implements Runnable {
+	private String topic;
 
+	public Producer(String topic) {
+		this.topic = topic;
+		try {
+		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+
+		Connection connection = connectionFactory.createConnection();
+		connection.start();
+//connection.
+		session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+		// Administrative object
+		Destination dest = session.createTopic(this.topic);
+
+		producer = session.createProducer(dest);
+		producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+//		String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
+		message = session.createTextMessage("Consumer");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+
+	Session session;
+	MessageProducer producer;
+	TextMessage message;
+	Gson gson = new Gson();
 	public void run() {
 
 		try {
 
-			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.1.12:61616");
-
-			Connection connection = connectionFactory.createConnection();
-			connection.start();
-
-			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
-			// Administrative object
-			Destination dest = session.createTopic("dataset");
-
-			MessageProducer producer = session.createProducer(dest);
-			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-
-			String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
-			TextMessage message = session.createTextMessage("Consumer");
-			Map<String, String> mapping = new HashMap<String, String>();
-			mapping.put("LocationID", "locationID");
-			mapping.put("Borough", "borough");
-			mapping.put("Zone", "zone");
-			mapping.put("service_zone", "serviceZone");
-			HeaderColumnNameTranslateMappingStrategy<TaxiZoneLookup> strategy = new HeaderColumnNameTranslateMappingStrategy<TaxiZoneLookup>();
-			strategy.setType(TaxiZoneLookup.class);
-			strategy.setColumnMapping(mapping);
-			CSVReader csvReader = null;
-			try {
-				csvReader = new CSVReader(new FileReader("data/taxi+_zone_lookup_sample.csv"));
-			} catch (FileNotFoundException e) {
-
-				// TODO Auto-generated catch bl/ock
-				e.printStackTrace();
-			}
-
-			CsvToBean<TaxiZoneLookup> csvToBean = new CsvToBean<TaxiZoneLookup>();
-
-			// call the parse method of CsvToBean
-			// pass strategy, csvReader to parse method
-			@SuppressWarnings("deprecation")
-			List<TaxiZoneLookup> list = csvToBean.parse(strategy, csvReader);
-
-			// print details of Bean object
-			Gson gson = new Gson();
-			String sampleText = gson.toJson(list);
-			message = session.createTextMessage(sampleText);
-			System.out.println("sent message: " + message.hashCode() + " : " + Thread.currentThread().getName());
-			producer.send(message);
-//			for (TaxiZoneLookup data : list) {
-//				String sampleText = gson.toJson(data);
-//				message = session.createTextMessage(sampleText);
-//				System.out.println("sent message: " + message.hashCode() + " : " + Thread.currentThread().getName());
-//				producer.send(message);
-//			}			
-//			Map<String, String> mapping = new HashMap<String, String>();
-//			mapping.put("VendorID", "vendorID");
-//			mapping.put("tpep_pickup_datetime", "tpep_pickup_datetime");
-//			mapping.put("tpep_dropoff_datetime", "tpep_dropoff_datetime");
-//			mapping.put("passenger_count", "passenger_count");
-//			mapping.put("trip_distance", "trip_distance");
-//			mapping.put("RatecodeID", "RatecodeID");
-//			mapping.put("store_and_fwd_flag", "store_and_fwd_flag");
-//			mapping.put("PULocationID", "PULocationID");
-//			mapping.put("DOLocationID", "DOLocationID");
-//			mapping.put("payment_type", "payment_type");
-//			mapping.put("fare_amount", "fare_amount");
-//			mapping.put("extra", "extra");
-//			mapping.put("mta_tax", "mta_tax");
-//			mapping.put("tip_amount", "tip_amount");
-//			mapping.put("tolls_amount", "tolls_amount");
-//			mapping.put("improvement_surcharge", "improvement_surcharge");
-//			mapping.put("total_amount", "total_amount");
-//			HeaderColumnNameTranslateMappingStrategy<Yellow_TripData> strategy = new HeaderColumnNameTranslateMappingStrategy<Yellow_TripData>();
-//			strategy.setType(Yellow_TripData.class);
-//			strategy.setColumnMapping(mapping);
-////			strategy.
-//			CSVReader csvReader = null;
-//			try {
-//				csvReader = new CSVReader(new FileReader("yellow_tripdata_2018-01_sample.csv"));
-//			} catch (Exception e) {
+//			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.0.111:61616");
 //
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+//			Connection connection = connectionFactory.createConnection();
+//			connection.start();
 //
-//			CsvToBean<Yellow_TripData> csvToBean = new CsvToBean<Yellow_TripData>();
-//			
-//			// call the parse method of CsvToBean
-//			// pass strategy, csvReader to parse method
-//			@SuppressWarnings({ "deprecation"})
-//			List<Yellow_TripData> list = csvToBean.parse(strategy, csvReader);
+//			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 //
-//			// print details of Bean object
-//			Gson gson = new Gson();
-//			for (Yellow_TripData data : list) {
-//				String sampleText = gson.toJson(data);
-//				message = session.createTextMessage(sampleText);
-//				System.out.println("sent message: " + message.hashCode() + " : " + Thread.currentThread().getName() + ":" + data.getVendorID());
-//				producer.send(message);
-//			}
-			connection.close();
+//			// Administrative object
+//			Destination dest = session.createTopic(this.topic);
+//
+//			producer = session.createProducer(dest);
+//			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+//
+////			String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
+//			message = session.createTextMessage("Consumer");
+//
+//			connection.close();
 
-		} catch (JMSException e) {
+		} catch (Exception e) {
 			System.out.println("caught " + e);
 			e.printStackTrace();
+		}
+	}
+
+	public void send(TripDatawithCrash tripDatawithCrash) {
+		try {
+			// print details of Bean object
+//			while(message == null) {
+////				message = session.createTextMessage("Consumer");
+//				Thread.sleep(100);
+//			}
+			
+			String tripDataMsg = gson.toJson(tripDatawithCrash);
+//			System.out.println(tripDataMsg);
+			message.setText(tripDataMsg);
+//			System.out.println("sent message: " + message);
+			
+			producer.send(message);
+//			Thread.sleep(100);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 }
