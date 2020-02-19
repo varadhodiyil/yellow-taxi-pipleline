@@ -44,7 +44,7 @@ class DataReceiver():
 
 	def close(self):
 		self.conn.disconnect()
-
+		self.conn.unsubscribe(1)
 
 
 
