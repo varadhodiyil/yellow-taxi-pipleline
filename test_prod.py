@@ -28,6 +28,7 @@ def read_files(file, drop, _dest):
 	data_reader = DataReader(chunk_size=10**3).read_csv(file, drop_cols=drop)
 	for d in data_reader:
 		chunk_parse(d, _dest)
+		# params = [d,_dest]
 	# with futures.ThreadPoolExecutor(max_workers=4) as executor:
 	# 		# _futures = executor.map(chunk_parse, *zip(*params) )
 	# 		_futures = executor.submit(chunk_parse, pd.DataFrame(data_reader) , _dest  )
