@@ -18,11 +18,11 @@ def geo_code(borough, lat, lng):
 	# _data =
 	__data = data.loc[data['latlng'] == _loc]
 	if __data['latlng'].count() == 0:
-		url = "https://maps.google.com/maps/api/geocode/json?latlng={0}&key=AIzaSyB3AMNbQkN3IgEQvCO9q6jmaWqHDRVeQA8".format(
-			_loc)
-		resp = requests.get(url).json()
-		# with open("t.json","r") as j:
-		# 	resp = json.load(j)
+		# url = "https://maps.google.com/maps/api/geocode/json?latlng={0}&key=AIzaSyB3AMNbQkN3IgEQvCO9q6jmaWqHDRVeQA8".format(
+		# 	_loc)
+		# resp = requests.get(url).json()
+		with open("t.json","r") as j:
+			resp = json.load(j)
 		# print(resp)
 		if len(resp['results']) > 0:
 			for comp in resp['results']:

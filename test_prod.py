@@ -22,11 +22,12 @@ def chunk_parse(df, dest):
 	# df , dest = param
 	print(dest)
 	for _, row in df.iterrows():
+		# print(row)
 		_key = None
 		if 'tpep_pickup_datetime' in row:
 			_key = 'tpep_pickup_datetime'
-		if 'CRASH DATE' in row:
-			_key = 'CRASH DATE'
+		if 'crash_date' in row:
+			_key = 'crash_date'
 		if parser.parse(row[_key]) >= interested_start and parser.parse(row[_key]) <= interested_end:
 			data = row.to_json(orient='columns')
 			p.publish(data, destination=dest)
@@ -57,7 +58,7 @@ _dataset = "/topic/dataset"
 _crash = "/topic/crash"
 try:
 	t1 = threading.Thread(target=read_files, args=(
-		"sorted_data.csv", drop, _dataset, False))
+		"read/mad.csv", drop, _dataset, False))
 
 	drop = ['ON STREET NAME', 'CROSS STREET NAME', 'OFF STREET NAME', 'NUMBER OF PERSONS INJURED', 'NUMBER OF PERSONS KILLED', 'NUMBER OF PEDESTRIANS INJURED',
          'NUMBER OF PEDESTRIANS KILLED', 'NUMBER OF CYCLIST INJURED', 'NUMBER OF CYCLIST KILLED', 'NUMBER OF MOTORIST INJURED', 'NUMBER OF MOTORIST KILLED',
@@ -65,17 +66,17 @@ try:
          'CONTRIBUTING FACTOR VEHICLE 5', 'COLLISION_ID', 'VEHICLE TYPE CODE 1', 'VEHICLE TYPE CODE 2', 'VEHICLE TYPE CODE 3',
          'VEHICLE TYPE CODE 4', 'VEHICLE TYPE CODE 5']
 	t2 = threading.Thread(target=read_files, args=(
-		"sorted_col.csv", drop, _crash, False, 'CRASH DATE'))
+		"read/sorted_col.csv", drop, _crash, False, 'crash_date'))
 
 	t1.start()
 	t2.start()
-	t1.join()
+	# t1.join()
 	t2.join()
 	# while not t1.is_alive() or not t2.is_alive():
 	# 	pass
 	d = json.dumps({"exit": True})
 	p.publish(d, _dataset)
-	p.publish(d, _crash)
+	# p.publish(d, _crash)
 # data_reader = DataReader(chunk_size=10**5).read_csv("m.csv",drop_cols= drop)
 # data = None
 

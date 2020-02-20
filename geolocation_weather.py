@@ -1,7 +1,7 @@
 from wwo_hist import retrieve_hist_data
 import os
 
-os.chdir("weather")
+# os.chdir("weather")
 frequency = 3
 start_date = '1-JAN-2018'
 end_date = '31-JAN-2018'
