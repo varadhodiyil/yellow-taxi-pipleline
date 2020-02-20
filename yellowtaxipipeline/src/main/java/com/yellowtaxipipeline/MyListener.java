@@ -43,74 +43,78 @@ public class MyListener implements MessageListener {
 				String doLocation = App.taxiZoneLookupData.stream()
 						.filter(taxi -> taxi.getLocationID() == yellowTripData.getdOLocationID()).findAny().get()
 						.getBorough();
-				System.out.println(new TripData(yellowTripData.getTpepPickupDatetime(), yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation).toString());
+				System.out.println(new TripData(yellowTripData.getTpepPickupDatetime(),
+						yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation).toString());
 				producerTripData.send(new TripData(yellowTripData.getTpepPickupDatetime(),
 						yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation));
 			} else if (topic.equals(Constants.CRASH_SRC)) {
 				CrashData crashData = null;
 				ActiveMQBytesMessage bytesMessage = (ActiveMQBytesMessage) message;
 				String messageText = new String(bytesMessage.getContent().data);
-				Gson gson = new Gson();
-				crashData = gson.fromJson(messageText, CrashData.class);
+				if (messageText != null && !messageText.isEmpty()) {
+					Gson gson = new Gson();
+					crashData = gson.fromJson(messageText, CrashData.class);
+					if (crashData != null) {
 //				System.out.println(crashData.toString());
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
-				DateTimeFormatter crashFormatter = DateTimeFormatter.ofPattern("M/d/yyyy H");
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
+						DateTimeFormatter crashFormatter = DateTimeFormatter.ofPattern("M/d/yyyy H");
 //				System.out.println(crashData.getCrashDate() + " " + crashData.getCrashTime());
-				LocalDateTime dateLimit = LocalDateTime.parse(crashData.getCrashDate() + " " + crashData.getCrashTime(),
-						formatter);
-				// <hour, <zone, count>
-				if (dateLimit
-						.isAfter(LocalDateTime.parse("31/12/2017 0:00", DateTimeFormatter.ofPattern("d/M/yyyy H:mm")))
-						&& dateLimit.isBefore(
-								LocalDateTime.parse("1/2/2018 0:00", DateTimeFormatter.ofPattern("d/M/yyyy H:mm")))) {
+						LocalDateTime dateLimit = LocalDateTime
+								.parse(crashData.getCrashDate() + " " + crashData.getCrashTime(), formatter);
+						// <hour, <zone, count>
+						if (dateLimit.isAfter(
+								LocalDateTime.parse("31/12/2017 0:00", DateTimeFormatter.ofPattern("d/M/yyyy H:mm")))
+								&& dateLimit.isBefore(LocalDateTime.parse("1/2/2018 0:00",
+										DateTimeFormatter.ofPattern("d/M/yyyy H:mm")))) {
 
-					// String hour = String.valueOf(LocalTime.parse(crashData.getCrashTime(),
-					// DateTimeFormatter.ofPattern("H:mm")).getHour());
-					String crashKey = dateLimit.format(crashFormatter);
-					HashMap<String, HashMap<Integer, HashMap<String, Integer>>> hourData = new HashMap<String, HashMap<Integer, HashMap<String, Integer>>>();
-					if (crashWeatherData != null && crashWeatherData.getCrashDateTime().equals(crashKey)) {
-						hourData = crashWeatherData.getCrashDetails();
-						if (hourData.containsKey(crashData.getBorough())) {
-							HashMap<Integer, HashMap<String, Integer>> crash = hourData.get(crashData.getBorough());
-							int count = crash.keySet().iterator().next() + 1;
-							HashMap<String, Integer> reason = crash.get(crash.keySet().iterator().next());
-							if (reason.containsKey(crashData.getContributingFactor())) {
-								reason.put(crashData.getContributingFactor(),
-										reason.get(crashData.getContributingFactor()) + 1);
-							} else
+							// String hour = String.valueOf(LocalTime.parse(crashData.getCrashTime(),
+							// DateTimeFormatter.ofPattern("H:mm")).getHour());
+							String crashKey = dateLimit.format(crashFormatter);
+							HashMap<String, HashMap<Integer, HashMap<String, Integer>>> hourData = new HashMap<String, HashMap<Integer, HashMap<String, Integer>>>();
+							if (crashWeatherData != null && crashWeatherData.getCrashDateTime().equals(crashKey)) {
+								hourData = crashWeatherData.getCrashDetails();
+								if (hourData.containsKey(crashData.getBorough())) {
+									HashMap<Integer, HashMap<String, Integer>> crash = hourData
+											.get(crashData.getBorough());
+									int count = crash.keySet().iterator().next() + 1;
+									HashMap<String, Integer> reason = crash.get(crash.keySet().iterator().next());
+									if (reason.containsKey(crashData.getContributingFactor())) {
+										reason.put(crashData.getContributingFactor(),
+												reason.get(crashData.getContributingFactor()) + 1);
+									} else
+										reason.put(crashData.getContributingFactor(), 1);
+									crash = new HashMap<Integer, HashMap<String, Integer>>();
+									crash.put(count, reason);
+									hourData.put(crashData.getBorough(), crash);
+								} else {
+									HashMap<Integer, HashMap<String, Integer>> crash = new HashMap<Integer, HashMap<String, Integer>>();
+									HashMap<String, Integer> crashReason = new HashMap<String, Integer>();
+									crashReason.put(crashData.getContributingFactor(), 1);
+									crash.put(1, crashReason);
+									hourData.put(crashData.getBorough(), crash);
+								}
+							} else {
+								HashMap<Integer, HashMap<String, Integer>> crash = new HashMap<Integer, HashMap<String, Integer>>();
+								HashMap<String, Integer> reason = new HashMap<String, Integer>();
 								reason.put(crashData.getContributingFactor(), 1);
-							crash = new HashMap<Integer, HashMap<String, Integer>>();
-							crash.put(count, reason);
-							hourData.put(crashData.getBorough(), crash);
-						} else {
-							HashMap<Integer, HashMap<String, Integer>> crash = new HashMap<Integer, HashMap<String, Integer>>();
-							HashMap<String, Integer> crashReason = new HashMap<String, Integer>();
-							crashReason.put(crashData.getContributingFactor(), 1);
-							crash.put(1, crashReason);
-							hourData.put(crashData.getBorough(), crash);
-						}
-					} else {
-						HashMap<Integer, HashMap<String, Integer>> crash = new HashMap<Integer, HashMap<String, Integer>>();
-						HashMap<String, Integer> reason = new HashMap<String, Integer>();
-						reason.put(crashData.getContributingFactor(), 1);
-						crash.put(1, reason);
-						hourData.put(crashData.getBorough(), crash);
-					}
-					// App.crashData.put(crashKey, hourData);
-					HashMap<String, WeatherData> weatherData = null;
-					if (crashWeatherData != null && LocalDateTime.parse(crashKey, crashFormatter)
-							.isAfter(LocalDateTime.parse(crashWeatherData.getCrashDateTime(), crashFormatter))) {
-						crashWeatherData.setWeatherDetails(readWeatherInfo(crashKey));
-						System.out.println("Enters" + crashWeatherData.toString());
-						producerCrash.send(crashWeatherData);
-					}
+								crash.put(1, reason);
+								hourData.put(crashData.getBorough(), crash);
+							}
+							// App.crashData.put(crashKey, hourData);
+							HashMap<String, WeatherData> weatherData = null;
+							if (crashWeatherData != null && LocalDateTime.parse(crashKey, crashFormatter).isAfter(
+									LocalDateTime.parse(crashWeatherData.getCrashDateTime(), crashFormatter))) {
+								crashWeatherData.setWeatherDetails(readWeatherInfo(crashKey));
+								System.out.println("Enters" + crashWeatherData.toString());
+								producerCrash.send(crashWeatherData);
+							}
 
-					crashWeatherData = new CrashWeatherData(crashKey, hourData, weatherData);
+							crashWeatherData = new CrashWeatherData(crashKey, hourData, weatherData);
 //					System.out.println(App.crashData.toString());
+						}
+					}
 				}
 			}
-
-//			}			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

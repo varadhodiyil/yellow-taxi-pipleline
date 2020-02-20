@@ -40,6 +40,11 @@ public class App {
 //		thread(new Producer(), false);
 
 		thread(new Consumer(Constants.CRASH_SRC), false);
+		try {
+			Thread.sleep(20000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		thread(new Consumer(Constants.DATASET_SRC), false);
 	}
 

@@ -24,7 +24,7 @@ public class Consumer implements Runnable {
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.MQ_HOST);
 
 			Connection connection = connectionFactory.createConnection();
-
+			connection.start();
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 			Destination dest = session.createTopic(this.topic);
@@ -35,7 +35,7 @@ public class Consumer implements Runnable {
 
 			consumer.setMessageListener(myListener);
 
-			connection.start();
+			
 //			List<YellowTripData> yellowTripDataArray = combineData();
 //			System.out.println(yellowTripDataArray.size());
 //			List<TripDatawithCrash> triDatawithCrashArray = new ArrayList<TripDatawithCrash>();
