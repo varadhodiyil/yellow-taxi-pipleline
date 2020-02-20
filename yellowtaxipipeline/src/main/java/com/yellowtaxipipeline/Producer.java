@@ -21,7 +21,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
 
-public class Producer implements Runnable {
+public class Producer<T> implements Runnable {
 	private String topic;
 
 	public Producer(String topic) {
@@ -80,17 +80,12 @@ public class Producer implements Runnable {
 		}
 	}
 
-	public void send(TripDatawithCrash tripDatawithCrash) {
+	public void send(T t) {
 		try {
-			// print details of Bean object
-//			while(message == null) {
-////				message = session.createTextMessage("Consumer");
-//				Thread.sleep(100);
-//			}
 			
-			String tripDataMsg = gson.toJson(tripDatawithCrash);
+			String messageJson = gson.toJson(t);
 //			System.out.println(tripDataMsg);
-			message.setText(tripDataMsg);
+			message.setText(messageJson);
 //			System.out.println("sent message: " + message);
 			
 			producer.send(message);
