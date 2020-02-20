@@ -1,4 +1,4 @@
-package com.yellowtaxipipeline;
+package com.yellowtaxipipeline.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,8 +9,10 @@ public class YellowTripData {
 	private String tpepPickupDatetime;
 	@SerializedName("tpep_dropoff_datetime")
 	private String tpepDropoffDatetime;
+
 	public YellowTripData() {
 	}
+
 	@SerializedName("passenger_count")
 	private String passengerCount;
 	@SerializedName("trip_distance")
@@ -23,6 +25,7 @@ public class YellowTripData {
 	private int pULocationID;
 	@SerializedName("DOLocationID")
 	private int dOLocationID;
+
 //	@SerializedName("payment_type")
 //	private String paymentType;
 //	@SerializedName("fare_amount")
@@ -39,10 +42,9 @@ public class YellowTripData {
 //	private String improvementSurcharge;
 //	@SerializedName("total_amount")
 //	private String totalAmount;
-	public YellowTripData(String vendorID, String tpepPickupDatetime, String tpepDropoffDatetime,
-			String passengerCount, String tripDistance, String ratecodeID, String storandFwdFlag, int pULocationID,
-			int dOLocationID) {
-		
+	public YellowTripData(String vendorID, String tpepPickupDatetime, String tpepDropoffDatetime, String passengerCount,
+			String tripDistance, String ratecodeID, String storandFwdFlag, int pULocationID, int dOLocationID) {
+
 //	}, String paymentType, String fareAmount, String extra, String mtaTax, String tipAmount,
 //			String tollsAmount, String improvementSurcharge) {
 		super();
@@ -63,67 +65,87 @@ public class YellowTripData {
 //		this.tollsAmount = tollsAmount;
 //		this.improvementSurcharge = improvementSurcharge;
 	}
+
 	@Override
 	public String toString() {
 		return "YellowTripData [vendorID=" + vendorID + ", tpepPickupDatetime=" + tpepPickupDatetime
 				+ ", tpepDropoffDatetime=" + tpepDropoffDatetime + ", passengerCount=" + passengerCount
 				+ ", tripDistance=" + tripDistance + ", RatecodeID=" + RatecodeID + ", storandFwdFlag=" + storandFwdFlag
-				+ ", pULocationID=" + pULocationID + ", dOLocationID=" + dOLocationID + "]"; //", paymentType=" + paymentType
+				+ ", pULocationID=" + pULocationID + ", dOLocationID=" + dOLocationID + "]"; // ", paymentType=" +
+																								// paymentType
 //				+ ", fareAmount=" + fareAmount + ", extra=" + extra + ", mtaTax=" + mtaTax + ", tipAmount=" + tipAmount
 //				+ ", tollsAmount=" + tollsAmount + ", improvementSurcharge=" + improvementSurcharge + "]"; //", totalAmount="
-				//+ totalAmount + "]";
+		// + totalAmount + "]";
 	}
+
 	public String getVendorID() {
 		return vendorID;
 	}
+
 	public void setVendorID(String vendorID) {
 		this.vendorID = vendorID;
 	}
+
 	public String getTpepPickupDatetime() {
 		return tpepPickupDatetime;
 	}
+
 	public void setTpepPickupDatetime(String tpepPickupDatetime) {
 		this.tpepPickupDatetime = tpepPickupDatetime;
 	}
+
 	public String getTpepDropoffDatetime() {
 		return tpepDropoffDatetime;
 	}
+
 	public void setTpepDropoffDatetime(String tpepDropoffDatetime) {
 		this.tpepDropoffDatetime = tpepDropoffDatetime;
 	}
+
 	public String getPassengerCount() {
 		return passengerCount;
 	}
+
 	public void setPassengerCount(String passengerCount) {
 		this.passengerCount = passengerCount;
 	}
+
 	public String getTripDistance() {
 		return tripDistance;
 	}
+
 	public void setTripDistance(String tripDistance) {
 		this.tripDistance = tripDistance;
 	}
+
 	public String getRatecodeID() {
 		return RatecodeID;
 	}
+
 	public void setRatecodeID(String ratecodeID) {
 		RatecodeID = ratecodeID;
 	}
+
 	public String getStorandFwdFlag() {
 		return storandFwdFlag;
 	}
+
 	public void setStorandFwdFlag(String storandFwdFlag) {
 		this.storandFwdFlag = storandFwdFlag;
 	}
+
 	public int getpULocationID() {
 		return pULocationID;
 	}
+
 	public void setpULocationID(int pULocationID) {
 		this.pULocationID = pULocationID;
 	}
+
 	public int getdOLocationID() {
 		return dOLocationID;
 	}
+
 	public void setdOLocationID(int dOLocationID) {
 		this.dOLocationID = dOLocationID;
 	}
@@ -175,5 +197,5 @@ public class YellowTripData {
 //	public void setTotalAmount(String totalAmount) {
 //		this.totalAmount = totalAmount;
 //	}
-	
+
 }

@@ -1,15 +1,8 @@
 package com.yellowtaxipipeline;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
-import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
@@ -17,9 +10,6 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.google.gson.Gson;
-import com.opencsv.CSVReader;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
 
 public class Producer<T> implements Runnable {
 	private String topic;
@@ -27,21 +17,21 @@ public class Producer<T> implements Runnable {
 	public Producer(String topic) {
 		this.topic = topic;
 		try {
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
-		Connection connection = connectionFactory.createConnection();
-		connection.start();
+			Connection connection = connectionFactory.createConnection();
+			connection.start();
 //connection.
-		session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-		// Administrative object
-		Destination dest = session.createTopic(this.topic);
+			// Administrative object
+			Destination dest = session.createTopic(this.topic);
 
-		producer = session.createProducer(dest);
-		producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+			producer = session.createProducer(dest);
+			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 //		String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
-		message = session.createTextMessage("Consumer");
+			message = session.createTextMessage("Consumer");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -52,6 +42,8 @@ public class Producer<T> implements Runnable {
 	MessageProducer producer;
 	TextMessage message;
 	Gson gson = new Gson();
+
+	@Override
 	public void run() {
 
 		try {
@@ -82,12 +74,12 @@ public class Producer<T> implements Runnable {
 
 	public void send(T t) {
 		try {
-			
+
 			String messageJson = gson.toJson(t);
 //			System.out.println(tripDataMsg);
 			message.setText(messageJson);
 //			System.out.println("sent message: " + message);
-			
+
 			producer.send(message);
 //			Thread.sleep(100);
 		} catch (Exception ex) {
