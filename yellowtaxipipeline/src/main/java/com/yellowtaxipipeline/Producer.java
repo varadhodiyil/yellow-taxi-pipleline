@@ -11,6 +11,9 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.google.gson.Gson;
 
+/*
+ * Generic producer class for Pulishing message
+ */
 public class Producer<T> implements Runnable {
 	private String topic;
 
@@ -48,40 +51,21 @@ public class Producer<T> implements Runnable {
 
 		try {
 
-//			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.0.111:61616");
-//
-//			Connection connection = connectionFactory.createConnection();
-//			connection.start();
-//
-//			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-//
-//			// Administrative object
-//			Destination dest = session.createTopic(this.topic);
-//
-//			producer = session.createProducer(dest);
-//			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-//
-////			String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
-//			message = session.createTextMessage("Consumer");
-//
-//			connection.close();
-
 		} catch (Exception e) {
 			System.out.println("caught " + e);
 			e.printStackTrace();
 		}
 	}
 
+	/*
+	 * Method to Publish the message retrieve from Type T
+	 */
 	public void send(T t) {
 		try {
 
 			String messageJson = gson.toJson(t);
-//			System.out.println(tripDataMsg);
 			message.setText(messageJson);
-//			System.out.println("sent message: " + message);
-
 			producer.send(message);
-//			Thread.sleep(100);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

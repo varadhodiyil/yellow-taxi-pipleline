@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class CrashData {
 	@SerializedName("COLLISION_ID")
 	private String collisionId;
-	@SerializedName("CRASH DATE")
-	private String crashDate;
-	@SerializedName("CRASH TIME")
-	private String crashTime;
+//	@SerializedName("CRASH DATE")
+//	private String crashDate;
+//	@SerializedName("CRASH TIME")
+//	private String crashTime;
 	@SerializedName("BOROUGH")
 	private String borough;
 	@SerializedName("ZIP CODE")
@@ -19,28 +19,25 @@ public class CrashData {
 	private String longitude;
 	@SerializedName("CONTRIBUTING FACTOR VEHICLE 1")
 	private String contributingFactor;
+	@SerializedName("crash_date")
+	private String crashDate;
+
+	public String getCrash_date() {
+		return crashDate;
+	}
+
+	public void setCrash_date(String crashDate) {
+		this.crashDate = crashDate;
+	}
 
 	public CrashData() {
 	}
 
 	@Override
 	public String toString() {
-		return "CrashData [collisionId=" + collisionId + ", crashDate=" + crashDate + ", crashTime=" + crashTime
+		return "CrashData [collisionId=" + collisionId + ", crashDate=" + crashDate 
 				+ ", borough=" + borough + ", zipCode=" + zipCode + ", latitude=" + latitude + ", longitude="
 				+ longitude + ", contributingFactor=" + contributingFactor + "]";
-	}
-
-	public CrashData(String collisionId, String crashDate, String crashTime, String borough, String zipCode,
-			String latitude, String longitude, String contributingFactor) {
-		super();
-		this.collisionId = collisionId;
-		this.crashDate = crashDate;
-		this.crashTime = crashTime;
-		this.borough = borough;
-		this.zipCode = zipCode;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.contributingFactor = contributingFactor;
 	}
 
 	public String getCollisionId() {
@@ -51,20 +48,21 @@ public class CrashData {
 		this.collisionId = collisionId;
 	}
 
+
+//	public String getCrashTime() {
+//		return crashTime;
+//	}
+//
+//	public void setCrashTime(String crashTime) {
+//		this.crashTime = crashTime;
+//	}
+
 	public String getCrashDate() {
 		return crashDate;
 	}
 
 	public void setCrashDate(String crashDate) {
 		this.crashDate = crashDate;
-	}
-
-	public String getCrashTime() {
-		return crashTime;
-	}
-
-	public void setCrashTime(String crashTime) {
-		this.crashTime = crashTime;
 	}
 
 	public String getBorough() {
@@ -106,4 +104,17 @@ public class CrashData {
 	public void setContributingFactor(String contributingFactor) {
 		this.contributingFactor = contributingFactor;
 	}
+
+	public CrashData(String collisionId, String borough, String zipCode, String latitude, String longitude,
+			String contributingFactor, String crashDate) {
+		super();
+		this.collisionId = collisionId;
+		this.borough = borough;
+		this.zipCode = zipCode;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.contributingFactor = contributingFactor;
+		this.crashDate = crashDate;
+	}
+	
 }
