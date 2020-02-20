@@ -25,6 +25,10 @@ hour_report_uri = "/topic/report/hour"
 day_report_uri = "/topic/report/day"
 publisher = DataPublisher()
 class Window(object):
+
+	"""
+		Window Logic Implementation
+	"""
 	def __init__(self, start='2018-01-01', zone=''):
 		self.hour = 0
 		self.day = np.zeros(24, dtype=int)
@@ -38,18 +42,17 @@ class Window(object):
 
 	def count(self, data, zone):
 		global logger
-		if self.current_time is None:
+		if self.current_time is None:  # Initially the date will be null, so setting current time to first record
 			self.current_time = data
 			self.current_hour = data.hour
-		if data.day != self.current_time.day:
+		if data.day != self.current_time.day:  # Different day
 			print("Next Window")
 			logging.debug("Next Window")
 			hour_report = dict()
 			hour_report['date'] = self.current_time.strftime('%Y-%m-%d')
 			hour_report['hour'] = self.current_hour
 			hour_report['frequency'] = self.hour
-			# print("For hour {0} of day {1} total Trips {2}  ".format(
-			# 	self.current_hour, self.current_time.strftime('%Y-%m-%d'), self.hour))
+			#Sort Records 
 			_sorted = sorted(self.zone.items(),
 			                 key=operator.itemgetter(1), reverse=True)
 			if len(_sorted) > 0:
@@ -57,10 +60,7 @@ class Window(object):
 				# print("Peak Zone {0} with frequency {1}" .format(key, val))
 				hour_report['peak_zone'] = {'zone': key , 'frequency': val}
 			publisher.publish(json.dumps(hour_report),hour_report_uri)
-			# print("Day Window")
-			# print("Total Trips {0}".format(sum(self.day)) )
-			# print("Peak Hour" , list(self.day).index(max(self.day)))
-			# print("." * 100)
+			
 			date_report = dict()
 			# print("*" * 5, self.current_time, data)
 			# print("Day Window", self.current_time)
@@ -70,16 +70,7 @@ class Window(object):
 			date_report['peak_hour'] = list(self.day).index(max(self.day))
 			# print(date_report)
 			publisher.publish(json.dumps(date_report) , day_report_uri)
-			# print(self.day)
-			# print("Total Trips {0} ".format(sum(self.day)))
-			# print("Peak Hour", list(self.day).index(max(self.day)))
-
-			# self.current_day = data.day
-			# self.current_hour = data.hour
-			# self.hour = 0
-			# self.current_time = self.start_date + timedelta(days=self.current_day , hours= self.current_hour)
-			print("-" * 100)
-			print('Next Day')
+			
 			self.day[self.current_hour] = self.hour
 			self.current_day = data.day
 			self.hour = 0
@@ -101,25 +92,15 @@ class Window(object):
 				key, val = _sorted[0]
 				# print("Peak Zone {0} with frequency {1}" .format(key, val))
 				hour_report['peak_zone'] = {'zone': key , 'frequency': val}
-			publisher.publish(json.dumps(hour_report),hour_report_uri)
+			publisher.publish(json.dumps(hour_report),hour_report_uri)  #Publish data
 			self.flag = self.flag + 1
 			self.day[self.current_hour] = self.hour
 			self.current_hour = data.hour
 			self.hour = 0
 			self.zone = defaultdict(int)
 			self.current_time = data
-		# else:
-		# 	if self.flag > 1:
-
-		# 		self.day[self.current_hour] = self.hour
-		# 		# print(" Diff For hour {0} total Trips {1}".format (self.current_hour , self.hour) )
-		# 		# self.current_time = self.start_date + timedelta(days=self.current_day , hours= self.current_hour)
-		# 		self.current_time = data
-		# 		self.hour = 0
-		# 		self.flag = 0
-			# else:
-			# 	self.hour = self.hour + 1
-		if self.current_hour >= 24 or (data.day != self.current_time.day):
+		
+		if self.current_hour >= 24 or (data.day != self.current_time.day): # If current_hour exists 24 , then the day has passed
 
 			# print("*" * 5, self.current_time, data)
 			# print("Day Window", self.current_time)
@@ -178,24 +159,3 @@ class Window(object):
 			# print(self.day)
 
 
-# w = Window()
-# w.count(parser.parse('2018-01-01 00:00:01'), 'M')
-# w.count(parser.parse('2018-01-01 00:10:01'), 'M')
-# w.count(parser.parse('2018-01-01 00:00:01'), 'H')
-# w.count(parser.parse('2018-01-01 01:00:01'), 'M')
-# w.count(parser.parse('2018-01-01 01:00:01'), 'M')
-# # for _ in range(11):
-# # 	w.count(parser.parse('2018-01-01 02:00:01'))
-# # 	w.count(parser.parse('2018-01-01 02:00:01'))
-# w.count(parser.parse('2018-01-23 02:00:01'), 'H')
-# w.count(parser.parse('2018-01-23 04:00:01'), 'H')
-# w.count(parser.parse('2018-01-23 04:00:01'), 'H')
-
-
-# # for _ in range(10):
-# # 	r = random.randint(0,23)
-# # 	print("Rand" , r)
-# # 	w.count(parser.parse('2018-01-01 02:00:01') + timedelta(hours=r))
-# # 	w.count(parser.parse('2018-01-01 02:00:01') + timedelta(days=r))
-# if w.hour > 0:
-# 	w.get_count()
