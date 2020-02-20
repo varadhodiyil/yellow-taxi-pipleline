@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
+import com.yellowtaxipipeline.models.WeatherData;
 
 /**
  * Hello world!

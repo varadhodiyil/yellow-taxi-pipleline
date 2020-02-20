@@ -6,6 +6,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 import com.google.gson.Gson;
+import com.yellowtaxipipeline.models.YellowTripData;
 
 public class ProducerListener implements MessageListener {
 
