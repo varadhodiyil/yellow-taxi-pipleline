@@ -20,16 +20,17 @@ import com.yellowtaxipipeline.model.WeatherData;
  */
 public class App {
 	public static HashMap<String, HashMap<String, HashMap<Integer, HashMap<String, Integer>>>> crashData = new HashMap<String, HashMap<String, HashMap<Integer, HashMap<String, Integer>>>>();
-	public static List<TaxiZoneLookup> taxiZoneLookupData = null;
-	public static List<WeatherData> weatherDataList = null;
-	public static List<String> cityNames = null;
+	public static List<TaxiZoneLookup> taxiZoneLookupData = new ArrayList<TaxiZoneLookup>();
+	public static List<WeatherData> weatherDataList = new ArrayList<WeatherData>();
+	public static List<String> cityNames = new ArrayList<String>();
 
 	public static void main(String[] args) {
 //		System.out.println(new Date());
 //		crashData = readCrashData();
 //		System.out.println(new Date());
 //		System.out.println("Crash count" + crashData);
-//		
+//		 String path = new File(".").getCanonicalPath();
+//		System.out.println(path);
 		taxiZoneLookupData = readTaxiZoneLookup();
 		System.out.println("Taxi Lookup count" + taxiZoneLookupData.size());
 		cityNames = taxiZoneLookupData.stream().map(taxi -> taxi.getBorough()).distinct().collect(Collectors.toList());
@@ -40,11 +41,6 @@ public class App {
 //		thread(new Producer(), false);
 
 		thread(new Consumer(Constants.CRASH_SRC), false);
-		try {
-			Thread.sleep(20000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		thread(new Consumer(Constants.DATASET_SRC), false);
 	}
 
@@ -70,7 +66,7 @@ public class App {
 			strategy.setColumnMapping(mapping);
 			CSVReader csvReader = null;
 
-			csvReader = new CSVReader(new FileReader("data/taxi+_zone_lookup.csv"));
+			csvReader = new CSVReader(new FileReader(Constants.LOOKUP_DS));
 
 			CsvToBean<TaxiZoneLookup> csvToBean = new CsvToBean<TaxiZoneLookup>();
 			csvToBean.setMappingStrategy(strategy);
@@ -102,7 +98,7 @@ public class App {
 			CSVReader csvReader = null;
 			for (String city : cityNames) {
 				try {
-					csvReader = new CSVReader(new FileReader("weather/" + city + ".csv"));
+					csvReader = new CSVReader(new FileReader(Constants.WEATHER_DIR + city + ".csv"));
 
 					CsvToBean<WeatherData> csvToBean = new CsvToBean<WeatherData>();
 					csvToBean.setMappingStrategy(strategy);

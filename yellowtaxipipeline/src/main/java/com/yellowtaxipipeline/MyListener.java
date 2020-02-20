@@ -3,12 +3,15 @@ package com.yellowtaxipipeline;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Set;
+
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import org.apache.activemq.command.ActiveMQBytesMessage;
 import com.google.gson.Gson;
 import com.yellowtaxipipeline.model.CrashData;
 import com.yellowtaxipipeline.model.CrashWeatherData;
+import com.yellowtaxipipeline.model.TaxiZoneLookup;
 import com.yellowtaxipipeline.model.TripData;
 import com.yellowtaxipipeline.model.WeatherData;
 import com.yellowtaxipipeline.model.YellowTripData;
@@ -37,12 +40,14 @@ public class MyListener implements MessageListener {
 				String messageText = new String(bytesMessage.getContent().data);
 				Gson gson = new Gson();
 				YellowTripData yellowTripData = gson.fromJson(messageText, YellowTripData.class);
-				String puLocation = App.taxiZoneLookupData.stream()
-						.filter(taxi -> taxi.getLocationID() == yellowTripData.getpULocationID()).findAny().get()
-						.getBorough();
-				String doLocation = App.taxiZoneLookupData.stream()
-						.filter(taxi -> taxi.getLocationID() == yellowTripData.getdOLocationID()).findAny().get()
-						.getBorough();
+				TaxiZoneLookup puLocationLookup = App.taxiZoneLookupData.stream()
+						.filter(taxi -> taxi.getLocationID() == yellowTripData.getpULocationID()).findAny()
+						.orElse(null);
+				String puLocation = puLocationLookup == null ? "" : puLocationLookup.getBorough();
+				TaxiZoneLookup doLocationLookup = App.taxiZoneLookupData.stream()
+						.filter(taxi -> taxi.getLocationID() == yellowTripData.getdOLocationID()).findAny()
+						.orElse(null);
+				String doLocation = doLocationLookup == null ? "" : doLocationLookup.getBorough();
 				System.out.println(new TripData(yellowTripData.getTpepPickupDatetime(),
 						yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation).toString());
 				producerTripData.send(new TripData(yellowTripData.getTpepPickupDatetime(),
@@ -55,12 +60,11 @@ public class MyListener implements MessageListener {
 					Gson gson = new Gson();
 					crashData = gson.fromJson(messageText, CrashData.class);
 					if (crashData != null) {
-//				System.out.println(crashData.toString());
-						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
+				System.out.println(crashData.toString());
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 						DateTimeFormatter crashFormatter = DateTimeFormatter.ofPattern("M/d/yyyy H");
-//				System.out.println(crashData.getCrashDate() + " " + crashData.getCrashTime());
-						LocalDateTime dateLimit = LocalDateTime
-								.parse(crashData.getCrashDate() + " " + crashData.getCrashTime(), formatter);
+						System.out.println(crashData.getCrashDate());
+						LocalDateTime dateLimit = LocalDateTime.parse(crashData.getCrash_date(), formatter);
 						// <hour, <zone, count>
 						if (dateLimit.isAfter(
 								LocalDateTime.parse("31/12/2017 0:00", DateTimeFormatter.ofPattern("d/M/yyyy H:mm")))
@@ -104,7 +108,8 @@ public class MyListener implements MessageListener {
 							HashMap<String, WeatherData> weatherData = null;
 							if (crashWeatherData != null && LocalDateTime.parse(crashKey, crashFormatter).isAfter(
 									LocalDateTime.parse(crashWeatherData.getCrashDateTime(), crashFormatter))) {
-								crashWeatherData.setWeatherDetails(readWeatherInfo(crashKey));
+//								crashWeatherData.setWeatherDetails(readWeatherInfo(crashKey));
+								crashWeatherData.setWeatherDetails(readWeatherInfo(crashKey, crashWeatherData.getCrashDetails().keySet()));
 								System.out.println("Enters" + crashWeatherData.toString());
 								producerCrash.send(crashWeatherData);
 							}
@@ -121,13 +126,13 @@ public class MyListener implements MessageListener {
 
 	}
 
-	public static HashMap<String, WeatherData> readWeatherInfo(String pickupDateTime) {
+	public static HashMap<String, WeatherData> readWeatherInfo(String pickupDateTime , Set<String> cityNames) {
 		HashMap<String, WeatherData> weatherData = new HashMap<String, WeatherData>();
 		LocalDateTime pickupDT = LocalDateTime.parse(pickupDateTime, DateTimeFormatter.ofPattern("M/d/yyyy H"));
 		String range = String.valueOf((Integer.parseInt(pickupDT.format(DateTimeFormatter.ofPattern("H"))) / 3) * 3);
-		for (String city : App.cityNames) {
+		for (String city : cityNames) {
 			WeatherData weather = App.weatherDataList.stream()
-					.filter(w -> w.getLocation().equals(city)
+					.filter(w -> w.getLocation() != null && w.getLocation().equalsIgnoreCase(city)
 							&& LocalDateTime.parse(w.getDatetime(), DateTimeFormatter.ofPattern("M/d/yyyy H:mm")) // "yyyy-MM-dd
 																													// HH:mm:ss"))
 									.format(DateTimeFormatter.ofPattern("d/M/yyyy H"))
