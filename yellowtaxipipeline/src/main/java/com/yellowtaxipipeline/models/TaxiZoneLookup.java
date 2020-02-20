@@ -1,4 +1,4 @@
-package com.yellowtaxipipeline;
+package com.yellowtaxipipeline.models;
 
 import com.google.gson.annotations.SerializedName;
 

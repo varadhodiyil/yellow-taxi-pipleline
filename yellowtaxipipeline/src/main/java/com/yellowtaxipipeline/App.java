@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
+import com.yellowtaxipipeline.models.TaxiZoneLookup;
 import com.yellowtaxipipeline.models.WeatherData;
 
 /**
@@ -38,8 +39,8 @@ public class App {
 //		System.out.println("WeatherData" + weatherDataList.toString());
 //		thread(new Producer(), false);
 
-		thread(new Consumer("crash"), false);
-		thread(new Consumer("dataset"), false);
+		thread(new Consumer(Constants.CRASH_SRC), false);
+		thread(new Consumer(Constants.DATASET_SRC), false);
 	}
 
 	public static void thread(Runnable runnable, boolean daemon) {

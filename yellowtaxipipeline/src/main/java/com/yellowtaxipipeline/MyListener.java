@@ -22,9 +22,9 @@ public class MyListener implements MessageListener {
 	public MyListener(String topic) {
 		super();
 		this.topic = topic;
-		producerTripData = new Producer<TripData>("dataset/tripdata");
+		producerTripData = new Producer<TripData>(Constants.DATASET_DEST);
 		App.thread(producerTripData, false);
-		producerCrash = new Producer<CrashWeatherData>("dataset/crash");
+		producerCrash = new Producer<CrashWeatherData>(Constants.CRASH_REPORT);
 		App.thread(producerCrash, false);
 	}
 
@@ -32,7 +32,7 @@ public class MyListener implements MessageListener {
 	public void onMessage(Message message) {
 
 		try {
-			if (topic.equals("dataset")) {
+			if (topic.equals(Constants.DATASET_SRC)) {
 				ActiveMQBytesMessage bytesMessage = (ActiveMQBytesMessage) message;
 				String messageText = new String(bytesMessage.getContent().data);
 				Gson gson = new Gson();
@@ -46,7 +46,7 @@ public class MyListener implements MessageListener {
 //				System.out.println(new TripData(yellowTripData.getTpepPickupDatetime(), yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation).toString());
 				producerTripData.send(new TripData(yellowTripData.getTpepPickupDatetime(),
 						yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation));
-			} else if (topic.equals("crash")) {
+			} else if (topic.equals(Constants.CRASH_SRC)) {
 				CrashData crashData = null;
 				ActiveMQBytesMessage bytesMessage = (ActiveMQBytesMessage) message;
 				String messageText = new String(bytesMessage.getContent().data);

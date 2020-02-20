@@ -17,7 +17,7 @@ public class Producer<T> implements Runnable {
 	public Producer(String topic) {
 		this.topic = topic;
 		try {
-			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.MQ_HOST);
 
 			Connection connection = connectionFactory.createConnection();
 			connection.start();
