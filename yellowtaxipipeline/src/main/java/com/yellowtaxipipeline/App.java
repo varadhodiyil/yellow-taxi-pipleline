@@ -3,7 +3,6 @@ package com.yellowtaxipipeline;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,7 +23,7 @@ public class App {
 	public static HashMap<String, HashMap<String, HashMap<Integer, HashMap<String, Integer>>>> crashData = new HashMap<String, HashMap<String,HashMap<Integer,HashMap<String,Integer>>>>();
 	public static List<TaxiZoneLookup> taxiZoneLookupData = null;
 	public static List<WeatherData> weatherDataList = null;
-
+	public static List<String> cityNames = null;
 	public static void main(String[] args) {
 //		System.out.println(new Date());
 //		crashData = readCrashData();
@@ -33,7 +32,7 @@ public class App {
 //		
 		taxiZoneLookupData = readTaxiZoneLookup();
 		System.out.println("Taxi Lookup count" + taxiZoneLookupData.size());
-		List<String> cityNames = taxiZoneLookupData.stream().map(taxi -> taxi.getBorough()).distinct()
+		cityNames = taxiZoneLookupData.stream().map(taxi -> taxi.getBorough()).distinct()
 				.collect(Collectors.toList());
 		cityNames.remove(cityNames.size()-1);
 		weatherDataList = readWeatherData(cityNames);
@@ -42,12 +41,6 @@ public class App {
 //		thread(new Producer(), false);
 
 		thread(new Consumer("crash"), false);
-		try {
-			Thread.sleep(20000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		thread(new Consumer("dataset"), false);
 	}
 
