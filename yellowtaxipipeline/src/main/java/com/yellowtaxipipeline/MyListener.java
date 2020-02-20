@@ -43,7 +43,7 @@ public class MyListener implements MessageListener {
 				String doLocation = App.taxiZoneLookupData.stream()
 						.filter(taxi -> taxi.getLocationID() == yellowTripData.getdOLocationID()).findAny().get()
 						.getBorough();
-//				System.out.println(new TripData(yellowTripData.getTpepPickupDatetime(), yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation).toString());
+				System.out.println(new TripData(yellowTripData.getTpepPickupDatetime(), yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation).toString());
 				producerTripData.send(new TripData(yellowTripData.getTpepPickupDatetime(),
 						yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation));
 			} else if (topic.equals(Constants.CRASH_SRC)) {
@@ -53,7 +53,7 @@ public class MyListener implements MessageListener {
 				Gson gson = new Gson();
 				crashData = gson.fromJson(messageText, CrashData.class);
 //				System.out.println(crashData.toString());
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy H:mm");
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
 				DateTimeFormatter crashFormatter = DateTimeFormatter.ofPattern("M/d/yyyy H");
 //				System.out.println(crashData.getCrashDate() + " " + crashData.getCrashTime());
 				LocalDateTime dateLimit = LocalDateTime.parse(crashData.getCrashDate() + " " + crashData.getCrashTime(),
