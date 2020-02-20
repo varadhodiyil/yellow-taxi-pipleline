@@ -24,17 +24,19 @@ class Window(object):
 		if self.current_time is None:
 			self.current_time = data
 		if data.day != self.current_time.day:
-			print("Next Window" )
-			print("For hour {0} total Trips {1} ".format(self.current_hour, self.hour))
-			_sorted = sorted(self.zone.items() , key= operator.itemgetter(1),reverse=True)
+			print("Next Window")
+			print("For hour {0} of day {1} total Trips {2}  ".format(
+				self.current_hour, self.current_time.strftime('%Y-%m-%d'), self.hour))
+			_sorted = sorted(self.zone.items(),
+			                 key=operator.itemgetter(1), reverse=True)
 			if len(_sorted) > 0:
-				key , val = _sorted [0]
-				print("Peak Zone {0} with frequency {1}" .format(key,val))
+				key, val = _sorted[0]
+				print("Peak Zone {0} with frequency {1}" .format(key, val))
 			# print("Day Window")
 			# print("Total Trips {0}".format(sum(self.day)) )
 			# print("Peak Hour" , list(self.day).index(max(self.day)))
 			print("." * 100)
-			
+
 			print("*" * 5, self.current_time, data)
 			print("Day Window", self.current_time)
 			# print(self.day)
@@ -56,12 +58,14 @@ class Window(object):
 			self.zone = defaultdict(int)
 		if (data.hour - self.current_time.hour) >= 1:
 			# self.hour = self.hour + 1
-			
-			print("For hour {0} total Trips {1} ".format(self.current_hour, self.hour))
-			_sorted = sorted(self.zone.items() , key= operator.itemgetter(1),reverse=True)
+
+			print("For hour {0} of day {1} total Trips {2}  ".format(
+				self.current_hour, self.current_time.strftime('%Y-%m-%d'), self.hour))
+			_sorted = sorted(self.zone.items(),
+			                 key=operator.itemgetter(1), reverse=True)
 			if len(_sorted) > 0:
-				key , val = _sorted [0]
-				print("Peak Zone {0} with frequency {1}" .format(key,val))
+				key, val = _sorted[0]
+				print("Peak Zone {0} with frequency {1}" .format(key, val))
 			self.flag = self.flag + 1
 			self.day[self.current_hour] = self.hour
 			self.current_hour = data.hour
@@ -102,11 +106,13 @@ class Window(object):
 		if len(self.day) > 0:
 			if(self.hour) > 0:
 				self.day[self.current_hour] = self.hour
-			print("For hour {0} total Trips {1}".format(self.current_hour, self.hour))
-			_sorted = sorted(self.zone.items() , key= operator.itemgetter(1),reverse=True)
+			print("For hour {0} of day {1} total Trips {2}  ".format(
+				self.current_hour, self.current_time.strftime('%Y-%m-%d'), self.hour))
+			_sorted = sorted(self.zone.items(),
+			                 key=operator.itemgetter(1), reverse=True)
 			if len(_sorted) > 0:
-				key , val = _sorted [0]
-				print("Peak Zone {0} with frequency {1}" .format(key,val))
+				key, val = _sorted[0]
+				print("Peak Zone {0} with frequency {1}" .format(key, val))
 			print("*" * 50)
 			print("Day Window for ", self.current_time.strftime('%Y-%m-%d'))
 			print("Total Trips {0}".format(sum(self.day)))

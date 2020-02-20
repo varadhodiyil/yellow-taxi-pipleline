@@ -47,11 +47,8 @@ class DataReceiver():
 		self.conn.unsubscribe(1)
 
 
-
-
-
 if __name__ == "__main__":
 	d = DataReceiver()
-	d.subscribe("/topic/crash",print)
+	d.subscribe("/topic/crash", print)
 	while True:
 		time.sleep(2)

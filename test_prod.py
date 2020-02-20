@@ -35,9 +35,9 @@ def chunk_parse(df, dest):
 p = DataPublisher()
 
 
-def read_files(file, drop, _dest,sort=False,key='tpep_pickup_datetime'):
+def read_files(file, drop, _dest, sort=False, key='tpep_pickup_datetime'):
 	if sort:
-		file = sort_csv(file, interested_start, interested_end , key = key)
+		file = sort_csv(file, interested_start, interested_end, key=key)
 	data_reader = DataReader(chunk_size=10**3).read_csv(file, drop_cols=drop)
 	for d in data_reader:
 		chunk_parse(d, _dest)
@@ -57,15 +57,15 @@ _dataset = "/topic/dataset"
 _crash = "/topic/crash"
 try:
 	t1 = threading.Thread(target=read_files, args=(
-		"sorted_data.csv", drop, _dataset,False))
+		"sorted_data.csv", drop, _dataset, False))
 
-	drop = ['ON STREET NAME', 'CROSS STREET NAME', 'OFF STREET NAME', 'NUMBER OF PERSONS INJURED', 'NUMBER OF PERSONS KILLED', 'NUMBER OF PEDESTRIANS INJURED', 
-	'NUMBER OF PEDESTRIANS KILLED', 'NUMBER OF CYCLIST INJURED', 'NUMBER OF CYCLIST KILLED', 'NUMBER OF MOTORIST INJURED', 'NUMBER OF MOTORIST KILLED',
-         'CONTRIBUTING FACTOR VEHICLE 1', 'CONTRIBUTING FACTOR VEHICLE 2', 'CONTRIBUTING FACTOR VEHICLE 3', 'CONTRIBUTING FACTOR VEHICLE 4', 
-		 'CONTRIBUTING FACTOR VEHICLE 5', 'COLLISION_ID', 'VEHICLE TYPE CODE 1', 'VEHICLE TYPE CODE 2', 'VEHICLE TYPE CODE 3', 
-		 'VEHICLE TYPE CODE 4', 'VEHICLE TYPE CODE 5']
+	drop = ['ON STREET NAME', 'CROSS STREET NAME', 'OFF STREET NAME', 'NUMBER OF PERSONS INJURED', 'NUMBER OF PERSONS KILLED', 'NUMBER OF PEDESTRIANS INJURED',
+         'NUMBER OF PEDESTRIANS KILLED', 'NUMBER OF CYCLIST INJURED', 'NUMBER OF CYCLIST KILLED', 'NUMBER OF MOTORIST INJURED', 'NUMBER OF MOTORIST KILLED',
+         'CONTRIBUTING FACTOR VEHICLE 1', 'CONTRIBUTING FACTOR VEHICLE 2', 'CONTRIBUTING FACTOR VEHICLE 3', 'CONTRIBUTING FACTOR VEHICLE 4',
+         'CONTRIBUTING FACTOR VEHICLE 5', 'COLLISION_ID', 'VEHICLE TYPE CODE 1', 'VEHICLE TYPE CODE 2', 'VEHICLE TYPE CODE 3',
+         'VEHICLE TYPE CODE 4', 'VEHICLE TYPE CODE 5']
 	t2 = threading.Thread(target=read_files, args=(
-		"sorted_col.csv", drop, _crash, False,'CRASH DATE'))
+		"sorted_col.csv", drop, _crash, False, 'CRASH DATE'))
 
 	t1.start()
 	t2.start()
@@ -73,9 +73,9 @@ try:
 	t2.join()
 	# while not t1.is_alive() or not t2.is_alive():
 	# 	pass
-	d = json.dumps({"exit":True})
+	d = json.dumps({"exit": True})
 	p.publish(d, _dataset)
-	p.publish( d , _crash)
+	p.publish(d, _crash)
 # data_reader = DataReader(chunk_size=10**5).read_csv("m.csv",drop_cols= drop)
 # data = None
 
@@ -86,11 +86,11 @@ try:
 # 			for f in futures:
 # 				print(f)
 except KeyboardInterrupt:
-	d = {"exit":True}
-	p.publish(d, "")
+	d = {"exit": True}
+	# p.publish(d, "")
 	sys.exit(-1)
 
 
 _end = datetime.now()
 
-print("Total Seconds %d " % (_end - _start).seconds )
+print("Total Seconds %d " % (_end - _start).seconds)

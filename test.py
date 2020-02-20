@@ -61,11 +61,11 @@ def data_parser(data):
 		run_end = datetime.now()
 		w.get_count()
 		r.close()
-		print("Total Seconds  %d " % (run_end - run_start).seconds )
+		print("Total Seconds  %d " % (run_end - run_start).seconds)
 		sys.exit(-10)
 	pick = parser.parse(d['tpep_pickup_datetime'])
 	# report_date = start_date + timedelta(days=current_day , hours= current_hour)
-	drop = parser.parse(d['tpep_dropoff_datetime'])
+	# drop = parser.parse(d['tpep_dropoff_datetime'])
 	w.count(pick, d['PULocationID'])
 	# w.count(drop , d['DOLocationID'])
 	# if report_date < pick and pick > start_date:
@@ -76,8 +76,6 @@ def data_parser(data):
 	# 		_min = min([pick, drop])
 	# 	dataset.append((pick.strftime('%Y-%m-%d') , pick.hour))
 	# 	dataset.append((drop.strftime('%Y-%m-%d') , drop.hour ))
-
-
 
 
 def exit_handler(signum, frame):
