@@ -20,14 +20,14 @@ public class CrashData {
 	@SerializedName("CONTRIBUTING FACTOR VEHICLE 1")
 	private String contributingFactor;
 	@SerializedName("crash_date")
-	private String crash_date;
+	private String crashDate;
 
 	public String getCrash_date() {
-		return crash_date;
+		return crashDate;
 	}
 
-	public void setCrash_date(String crash_date) {
-		this.crash_date = crash_date;
+	public void setCrash_date(String crashDate) {
+		this.crashDate = crashDate;
 	}
 
 	public CrashData() {
@@ -35,22 +35,9 @@ public class CrashData {
 
 	@Override
 	public String toString() {
-		return "CrashData [collisionId=" + collisionId + ", crashDate=" + crash_date 
+		return "CrashData [collisionId=" + collisionId + ", crashDate=" + crashDate 
 				+ ", borough=" + borough + ", zipCode=" + zipCode + ", latitude=" + latitude + ", longitude="
 				+ longitude + ", contributingFactor=" + contributingFactor + "]";
-	}
-
-	public CrashData(String collisionId, String borough, String zipCode,
-			String latitude, String longitude, String contributingFactor) {
-		super();
-		this.collisionId = collisionId;
-//		this.crashDate = crashDate;
-//		this.crashTime = crashTime;
-		this.borough = borough;
-		this.zipCode = zipCode;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.contributingFactor = contributingFactor;
 	}
 
 	public String getCollisionId() {
@@ -61,13 +48,6 @@ public class CrashData {
 		this.collisionId = collisionId;
 	}
 
-	public String getCrashDate() {
-		return this.getCrash_date();
-	}
-
-	public void setCrashDate(String crashDate) {
-		this.setCrash_date(crashDate);;
-	}
 
 //	public String getCrashTime() {
 //		return crashTime;
@@ -76,6 +56,14 @@ public class CrashData {
 //	public void setCrashTime(String crashTime) {
 //		this.crashTime = crashTime;
 //	}
+
+	public String getCrashDate() {
+		return crashDate;
+	}
+
+	public void setCrashDate(String crashDate) {
+		this.crashDate = crashDate;
+	}
 
 	public String getBorough() {
 		return borough;
@@ -116,4 +104,17 @@ public class CrashData {
 	public void setContributingFactor(String contributingFactor) {
 		this.contributingFactor = contributingFactor;
 	}
+
+	public CrashData(String collisionId, String borough, String zipCode, String latitude, String longitude,
+			String contributingFactor, String crashDate) {
+		super();
+		this.collisionId = collisionId;
+		this.borough = borough;
+		this.zipCode = zipCode;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.contributingFactor = contributingFactor;
+		this.crashDate = crashDate;
+	}
+	
 }

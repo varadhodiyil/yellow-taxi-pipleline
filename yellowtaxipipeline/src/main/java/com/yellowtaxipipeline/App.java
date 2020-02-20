@@ -15,7 +15,7 @@ import com.yellowtaxipipeline.model.TaxiZoneLookup;
 import com.yellowtaxipipeline.model.WeatherData;
 
 /**
- * Hello world!
+ * Class for initiating Taxi trip application
  *
  */
 public class App {
@@ -24,33 +24,38 @@ public class App {
 	public static List<WeatherData> weatherDataList = new ArrayList<WeatherData>();
 	public static List<String> cityNames = new ArrayList<String>();
 
+	/*
+	 * Main method for Taxi trip application.
+	 * 
+	 * TaxizoneInfo and Weather data are read and stored globally
+	 */
 	public static void main(String[] args) {
-//		System.out.println(new Date());
-//		crashData = readCrashData();
-//		System.out.println(new Date());
-//		System.out.println("Crash count" + crashData);
-//		 String path = new File(".").getCanonicalPath();
-//		System.out.println(path);
+
 		taxiZoneLookupData = readTaxiZoneLookup();
 		System.out.println("Taxi Lookup count" + taxiZoneLookupData.size());
 		cityNames = taxiZoneLookupData.stream().map(taxi -> taxi.getBorough()).distinct().collect(Collectors.toList());
 		cityNames.remove(cityNames.size() - 1);
 		weatherDataList = readWeatherData(cityNames);
 
-//		System.out.println("WeatherData" + weatherDataList.toString());
-//		thread(new Producer(), false);
-
-		thread(new Consumer(Constants.CRASH_SRC), false);
-		thread(new Consumer(Constants.DATASET_SRC), false);
+		thread(new Consumer(Constants.CRASH_SRC), false);	//Consumer thread for Crash data
+		thread(new Consumer(Constants.DATASET_SRC), false); //Consumer thread for Trip data
 	}
 
-	public static void thread(Runnable runnable, boolean daemon) {
-
+	/*
+	 * Method to initialize daemon thread
+	 */
+	public static void thread(Runnable runnable, boolean daemon) 
+	{
 		Thread brokerThread = new Thread(runnable);
 		brokerThread.setDaemon(daemon);
 		brokerThread.start();
 	}
 
+	/*
+	 * Method to read Taxizone Lookup data
+	 *
+	 * returns List<TaxiZoneLookup> data read from file
+	 */
 	private static List<TaxiZoneLookup> readTaxiZoneLookup() {
 		List<TaxiZoneLookup> taxiZoneLookupData = new ArrayList<TaxiZoneLookup>();
 		try {
@@ -59,15 +64,11 @@ public class App {
 			mapping.put("Borough", "borough");
 			mapping.put("Zone", "zone");
 			mapping.put("service_zone", "serviceZone");
-			// HeaderColumnNameTranslateMappingStrategy<TaxiZoneLookup> strategy = new
-			// HeaderColumnNameTranslateMappingStrategy<TaxiZoneLookup>();
 			HeaderColumnNameTranslateMappingStrategy<TaxiZoneLookup> strategy = new HeaderColumnNameTranslateMappingStrategy<TaxiZoneLookup>();
 			strategy.setType(TaxiZoneLookup.class);
 			strategy.setColumnMapping(mapping);
 			CSVReader csvReader = null;
-
 			csvReader = new CSVReader(new FileReader(Constants.LOOKUP_DS));
-
 			CsvToBean<TaxiZoneLookup> csvToBean = new CsvToBean<TaxiZoneLookup>();
 			csvToBean.setMappingStrategy(strategy);
 			csvToBean.setCsvReader(csvReader);
@@ -78,6 +79,13 @@ public class App {
 		return taxiZoneLookupData;
 	}
 
+	/*
+	 * Method to read Weather data from csv file
+	 * 
+	 * @param cityNames distinct cityNames from TaxizoneLookup to retrieve weather data
+	 * 
+	 * returns List<WeatherData> read from history of WeatherData CSV files.
+	 */
 	private static List<WeatherData> readWeatherData(List<String> cityNames) {
 		List<WeatherData> taxiZoneLookupData = new ArrayList<WeatherData>();
 		try {

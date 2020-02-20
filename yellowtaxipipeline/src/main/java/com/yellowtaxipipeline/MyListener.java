@@ -16,6 +16,9 @@ import com.yellowtaxipipeline.model.TripData;
 import com.yellowtaxipipeline.model.WeatherData;
 import com.yellowtaxipipeline.model.YellowTripData;
 
+/*
+ * Listener class for Consumer
+ */
 public class MyListener implements MessageListener {
 	private String topic;
 	Producer<TripData> producerTripData;
@@ -26,16 +29,24 @@ public class MyListener implements MessageListener {
 		super();
 		this.topic = topic;
 		producerTripData = new Producer<TripData>(Constants.DATASET_DEST);
-		App.thread(producerTripData, false);
+		App.thread(producerTripData, false);	//Producer thread for Trip data is invoked
 		producerCrash = new Producer<CrashWeatherData>(Constants.CRASH_REPORT);
-		App.thread(producerCrash, false);
+		App.thread(producerCrash, false);		//Producer thread for crash data is invoked
 	}
 
+	/*
+	 * Method to receive data consumed
+	 * 
+	 * @param message data send from publisher
+	 */
 	@Override
 	public void onMessage(Message message) {
 
 		try {
 			if (topic.equals(Constants.DATASET_SRC)) {
+				/*
+				 * retrieved YellowTripData is updated for location details and send to Producer thread
+				 */
 				ActiveMQBytesMessage bytesMessage = (ActiveMQBytesMessage) message;
 				String messageText = new String(bytesMessage.getContent().data);
 				Gson gson = new Gson();
@@ -53,6 +64,9 @@ public class MyListener implements MessageListener {
 				producerTripData.send(new TripData(yellowTripData.getTpepPickupDatetime(),
 						yellowTripData.getTpepDropoffDatetime(), puLocation, doLocation));
 			} else if (topic.equals(Constants.CRASH_SRC)) {
+				/*
+				 * retrieved CrashData is normalized and combined with Weather data. 
+				 */
 				CrashData crashData = null;
 				ActiveMQBytesMessage bytesMessage = (ActiveMQBytesMessage) message;
 				String messageText = new String(bytesMessage.getContent().data);
@@ -70,9 +84,6 @@ public class MyListener implements MessageListener {
 								LocalDateTime.parse("31/12/2017 0:00", DateTimeFormatter.ofPattern("d/M/yyyy H:mm")))
 								&& dateLimit.isBefore(LocalDateTime.parse("1/2/2018 0:00",
 										DateTimeFormatter.ofPattern("d/M/yyyy H:mm")))) {
-
-							// String hour = String.valueOf(LocalTime.parse(crashData.getCrashTime(),
-							// DateTimeFormatter.ofPattern("H:mm")).getHour());
 							String crashKey = dateLimit.format(crashFormatter);
 							HashMap<String, HashMap<Integer, HashMap<String, Integer>>> hourData = new HashMap<String, HashMap<Integer, HashMap<String, Integer>>>();
 							if (crashWeatherData != null && crashWeatherData.getCrashDateTime().equals(crashKey)) {
@@ -104,7 +115,6 @@ public class MyListener implements MessageListener {
 								crash.put(1, reason);
 								hourData.put(crashData.getBorough(), crash);
 							}
-							// App.crashData.put(crashKey, hourData);
 							HashMap<String, WeatherData> weatherData = null;
 							if (crashWeatherData != null && LocalDateTime.parse(crashKey, crashFormatter).isAfter(
 									LocalDateTime.parse(crashWeatherData.getCrashDateTime(), crashFormatter))) {
@@ -115,7 +125,6 @@ public class MyListener implements MessageListener {
 							}
 
 							crashWeatherData = new CrashWeatherData(crashKey, hourData, weatherData);
-//					System.out.println(App.crashData.toString());
 						}
 					}
 				}
@@ -144,85 +153,5 @@ public class MyListener implements MessageListener {
 		return weatherData;
 	}
 
-//	private List<TaxiZoneLookup> readTaxiZoneLookup() {
-//		Map<String, String> mapping = new HashMap<String, String>();
-//		mapping.put("LocationID", "locationID");
-//		mapping.put("Borough", "borough");
-//		mapping.put("Zone", "zone");
-////		mapping.put("service_zone", "serviceZone");
-//		HeaderColumnNameTranslateMappingStrategy<TaxiZoneLookup> strategy = new HeaderColumnNameTranslateMappingStrategy<TaxiZoneLookup>();
-//		strategy.setType(TaxiZoneLookup.class);
-//		strategy.setColumnMapping(mapping);
-//		CSVReader csvReader = null;
-//		try {
-//			csvReader = new CSVReader(new FileReader("data/taxi+_zone_lookup_sample.csv"));
-//		} catch (FileNotFoundException e) {
-//
-//			// TODO Auto-generated catch bl/ock
-//			e.printStackTrace();
-//		}
-//
-//		CsvToBean<TaxiZoneLookup> csvToBean = new CsvToBean<TaxiZoneLookup>();
-//
-//		// call the parse method of CsvToBean
-//		// pass strategy, csvReader to parse method
-//		@SuppressWarnings("deprecation")
-//		List<TaxiZoneLookup> taxiZoneLookupData = csvToBean.parse(strategy, csvReader);
-//		return taxiZoneLookupData;
-//	}
-//	
-//	private List<CrashData> readCrashData() {
-//		Map<String, String> mapping = new HashMap<String, String>();
-//		mapping.put("COLLISION_ID", "collisionId");
-//		mapping.put("CRASH DATE", "crashDate");
-//		mapping.put("CRASH_TIME", "crashTime");
-//		mapping.put("BOROUGH", "borough");
-//		mapping.put("ZIP CODE", "zipCode");
-//		mapping.put("LATITUDE", "latitude");
-//		mapping.put("LONGITUDE", "longitude");
-//		mapping.put("ON STREET NAME", "onStreetName");
-//		mapping.put("CROSS STREET NAME", "crossStreetName");
-//		mapping.put("OFF STREET NAME", "offStreetName");
-////		mapping.put("service_zone", "serviceZone");
-//		HeaderColumnNameTranslateMappingStrategy<CrashData> strategy = new HeaderColumnNameTranslateMappingStrategy<CrashData>();
-//		strategy.setType(CrashData.class);
-//		strategy.setColumnMapping(mapping);
-//		CSVReader csvReader = null;
-//		try {
-//			csvReader = new CSVReader(new FileReader("data/crash_sample.csv"));
-//		} catch (FileNotFoundException e) {
-//
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		//CsvToBean<CrashData> csvToBean = new CsvToBean<CrashData>();
-//		Reader reader = null;
-//		try {
-//			reader = Files.newBufferedReader(Paths.get("data/crash_sample.csv"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		// call the parse method of CsvToBean
-//		// pass strategy, csvReader to parse method
-//		System.out.println(new Date());
-//		@SuppressWarnings("deprecation")
-//		List<CrashData> crashData = new ArrayList<CrashData>();
-//		CsvToBean<CrashData> csvToBean = new CsvToBeanBuilder(reader)
-//                .withType(CrashData.class)
-//                .withIgnoreLeadingWhiteSpace(true)
-//                .withMappingStrategy(strategy)
-//                .build();
-//
-//        Iterator<CrashData> csvUserIterator = csvToBean.iterator();
-//        while (csvUserIterator.hasNext()) {
-//        	CrashData csvUser = csvUserIterator.next();
-////            System.out.println(csvUser.toString());
-//        }
-//        System.out.println(new Date());
-////		csvToBean.parse(strategy, csvReader);
-//		return crashData;
-//	}
 
 }
