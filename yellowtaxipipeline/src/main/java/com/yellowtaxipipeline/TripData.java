@@ -11,20 +11,18 @@ public class TripData {
 	private String pULocation;
 	@SerializedName("DOLocation")
 	private String dOLocation;
-	public TripData(String tpepPickupDatetime, String tpepDropoffDatetime, String pULocation,
-			String dOLocation) {
+
+	public TripData(String tpepPickupDatetime, String tpepDropoffDatetime, String pULocation, String dOLocation) {
 		this.tpepPickupDatetime = tpepPickupDatetime;
 		this.tpepDropoffDatetime = tpepDropoffDatetime;
 		this.pULocation = pULocation;
 		this.dOLocation = dOLocation;
 	}
+
 	@Override
 	public String toString() {
 		return "TripDatawithCrash [tpepPickupDatetime=" + tpepPickupDatetime + ", tpepDropoffDatetime="
 				+ tpepDropoffDatetime + ", pULocation=" + pULocation + ", dOLocation=" + dOLocation + "]";
 	}
-	
-	
-	
-	
+
 }

@@ -23,6 +23,7 @@ public class MyListener implements MessageListener {
 		App.thread(producerCrash, false);
 	}
 
+	@Override
 	public void onMessage(Message message) {
 
 		try {
@@ -98,7 +99,7 @@ public class MyListener implements MessageListener {
 						System.out.println("Enters" + crashWeatherData.toString());
 						producerCrash.send(crashWeatherData);
 					}
-					
+
 					crashWeatherData = new CrashWeatherData(crashKey, hourData, weatherData);
 //					System.out.println(App.crashData.toString());
 				}
@@ -113,14 +114,13 @@ public class MyListener implements MessageListener {
 
 	public static HashMap<String, WeatherData> readWeatherInfo(String pickupDateTime) {
 		HashMap<String, WeatherData> weatherData = new HashMap<String, WeatherData>();
-		LocalDateTime pickupDT = LocalDateTime.parse(pickupDateTime,
-				DateTimeFormatter.ofPattern("M/d/yyyy H"));
+		LocalDateTime pickupDT = LocalDateTime.parse(pickupDateTime, DateTimeFormatter.ofPattern("M/d/yyyy H"));
 		String range = String.valueOf((Integer.parseInt(pickupDT.format(DateTimeFormatter.ofPattern("H"))) / 3) * 3);
 		for (String city : App.cityNames) {
 			WeatherData weather = App.weatherDataList.stream()
 					.filter(w -> w.getLocation().equals(city)
 							&& LocalDateTime.parse(w.getDatetime(), DateTimeFormatter.ofPattern("M/d/yyyy H:mm")) // "yyyy-MM-dd
-																														// HH:mm:ss"))
+																													// HH:mm:ss"))
 									.format(DateTimeFormatter.ofPattern("d/M/yyyy H"))
 									.equals(pickupDT.format(DateTimeFormatter.ofPattern("d/M/yyyy")) + " " + range))
 					.findAny().orElse(null);
