@@ -9,7 +9,7 @@ import javax.jms.Session;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import com.yellowtaxipipeline.models.WeatherData;
+import com.yellowtaxipipeline.model.WeatherData;
 
 public class Consumer implements Runnable {
 	private String topic;

@@ -1,4 +1,4 @@
-package com.yellowtaxipipeline.models;
+package com.yellowtaxipipeline.model;
 
 import java.util.HashMap;
 

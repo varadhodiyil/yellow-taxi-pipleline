@@ -7,11 +7,11 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import org.apache.activemq.command.ActiveMQBytesMessage;
 import com.google.gson.Gson;
-import com.yellowtaxipipeline.models.CrashData;
-import com.yellowtaxipipeline.models.CrashWeatherData;
-import com.yellowtaxipipeline.models.TripData;
-import com.yellowtaxipipeline.models.WeatherData;
-import com.yellowtaxipipeline.models.YellowTripData;
+import com.yellowtaxipipeline.model.CrashData;
+import com.yellowtaxipipeline.model.CrashWeatherData;
+import com.yellowtaxipipeline.model.TripData;
+import com.yellowtaxipipeline.model.WeatherData;
+import com.yellowtaxipipeline.model.YellowTripData;
 
 public class MyListener implements MessageListener {
 	private String topic;
